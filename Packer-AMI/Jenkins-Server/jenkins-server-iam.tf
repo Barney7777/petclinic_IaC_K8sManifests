@@ -30,6 +30,7 @@ resource "aws_iam_policy" "ec2_instance_policy" {
           "ec2:DeleteKeyPair",
           "ec2:DescribeKeyPairs",
           "ec2:DescribeSecurityGroups",
+          "ec2:CreateImage",
           "iam:PassRole"
         ],
         Resource = "*"
