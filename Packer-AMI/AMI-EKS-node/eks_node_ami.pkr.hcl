@@ -10,19 +10,19 @@ packer {
 
 # which ami to use as the based and where to save it
 source "amazon-ebs" "eks_worker_node_ami" {
-  region             = "ap-southeast-2"
-  instance_type      = "t2.micro"
+  region             = var.region
+  instance_type      = var.instance_type
   ami_name           = "eks-worker-node-ami-${formatdate("YYYY-MM-DD-hh-mm", timestamp())}"
-  source_ami         = "ami-0e98b1c81b916e2fa"
-  ssh_username       = "ec2-user"
-  security_group_ids = ["sg-07e577f4b14868291"]
+  source_ami         = var.source_ami
+  ssh_username       = var.ssh_username
+  security_group_ids = var.security_group_ids
   # ami_users = ["AWS_Account_ID"]
-  ami_regions = ["ap-southeast-2"]
+  ami_regions = var.ami_regions
 }
 
 # build process
 build {
-  name = "eks_node_ami"
+  name = var.ami_name
   sources = [
     "source.amazon-ebs.eks_worker_node_ami"
   ]
