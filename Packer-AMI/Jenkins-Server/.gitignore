@@ -1,0 +1,7 @@
+terraform.*
+.terraform.*
+.terraform
+tf_backend_provision
+*_PLAN
+*plan.txt
+env
