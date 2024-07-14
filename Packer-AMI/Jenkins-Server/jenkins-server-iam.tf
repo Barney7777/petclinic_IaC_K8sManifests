@@ -19,6 +19,7 @@ resource "aws_iam_policy" "ec2_instance_policy" {
           "ec2:RegisterImage",
           "ec2:CreateVolume",
           "ec2:AttachVolume",
+          "ec2:DeleteVolume",
           "ec2:ModifyImageAttribute",
           "ec2:ModifyInstanceAttribute",
           "ec2:ResetImageAttribute",
