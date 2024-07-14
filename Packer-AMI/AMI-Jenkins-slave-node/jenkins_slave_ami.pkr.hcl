@@ -14,7 +14,7 @@ source "amazon-ebs" "jenkins_slave_node_ami" {
   instance_type      = "t2.micro"
   ami_name           = "jenkins-slave-node-ami-${formatdate("YYYY-MM-DD-hh-mm", timestamp())}"
   source_ami         = "ami-03f0544597f43a91d"
-  ssh_username       = "ec2-user"
+  ssh_username       = "ubuntu"
   security_group_ids = ["sg-07e577f4b14868291"]
   # ami_users = ["AWS_Account_ID"]
   ami_regions = ["ap-southeast-2"]
