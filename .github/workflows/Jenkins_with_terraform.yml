@@ -98,8 +98,8 @@ jobs:
         uses: actions/approval@v1
         if: github.event.inputs.approve_destroy != 'true'
         with:
-        body: 'This action will destroy the infrastructure. Are you sure you want to proceed?'
-        title: 'Approve Infrastructure Destruction'
+          body: 'This action will destroy the infrastructure. Are you sure you want to proceed?'
+          title: 'Approve Infrastructure Destruction'
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
