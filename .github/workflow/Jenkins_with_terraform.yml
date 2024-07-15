@@ -6,7 +6,7 @@ on:
       - main
       - devops-barney
     paths:
-      - PACKER-AMI/AMI-EKS-node/**
+      - PACKER-AMI/Jenkins-Server/**
   workflow_dispatch:
 
 env:
