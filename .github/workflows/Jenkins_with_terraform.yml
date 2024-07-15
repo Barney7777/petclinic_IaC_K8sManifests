@@ -27,7 +27,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./PACKER-AMI/Jenkins-Server
+        working-directory: ./Packer-AMI/Jenkins-Server
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
