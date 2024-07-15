@@ -1,0 +1,57 @@
+name: Jenkins Server Provision with Terraform
+
+on:
+  push:
+    branches:
+      - main
+      - devops-barney
+    paths:
+      - PACKER-AMI/AMI-EKS-node/**
+  workflow_dispatch:
+
+env:
+   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+   AWS_REGION: ap-southeast-2
+
+jobs:
+  terraform:
+    name: "Apply terraform code change"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./PACKER-AMI/Jenkins-Server
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+      
+      - name: Tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          soft_fail: true
+      
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt
+      
+      - name: Terraform Validate
+        run: terraform validate
+      
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -out planfile
+      
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+      
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve - input=false planfile
+        
