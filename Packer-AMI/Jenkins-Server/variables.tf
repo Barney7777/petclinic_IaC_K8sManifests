@@ -52,3 +52,5 @@ variable "ami_id" {
   description = "ami id for the ec2 instance"
   type        = string
 }
+
+
