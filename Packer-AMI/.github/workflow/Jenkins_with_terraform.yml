@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - devops-barney
     paths:
       - PACKER-AMI/AMI-EKS-node/**
   workflow_dispatch:
@@ -53,3 +54,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve - input=false planfile
+        
