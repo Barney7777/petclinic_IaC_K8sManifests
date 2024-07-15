@@ -6,7 +6,13 @@ on:
       - main
       - devops-barney
     paths:
-      - PACKER-AMI/Jenkins-Server/**
+      - Packer-AMI/Jenkins-Server/**
+  pull_request:
+    branches:
+      - main
+      - devops-barney
+    paths:
+      - Packer-AMI/Jenkins-Server/**
   workflow_dispatch:
 
 env:
