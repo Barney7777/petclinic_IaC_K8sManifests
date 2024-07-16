@@ -22,6 +22,12 @@ resource "aws_iam_role_policy_attachment" "ec2_instance_policy_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
 }
 
+# Attach the AWS managed policy (AmazonEC2ContainerRegistryFullAccess) to the IAM role
+resource "aws_iam_role_policy_attachment" "ecr_full_access_policy_attachment" {
+  role       = aws_iam_role.ec2_instance_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+}
+
 # create and Attach a Custom Policy
 resource "aws_iam_policy" "pass_role_policy" {
   name = "${var.project_name}-${var.environment}-pass-role-policy"

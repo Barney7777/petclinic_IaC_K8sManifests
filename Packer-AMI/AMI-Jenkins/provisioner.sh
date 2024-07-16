@@ -32,7 +32,9 @@ sudo ./aws/install
 sudo apt-get update
 sudo apt-get install docker.io -y
 sudo usermod -aG docker ubuntu
+sudo usermod -aG docker jenkins 
 newgrp docker
+sudo chmod 777 /var/run/docker.sock
 
 # install mvn
 sudo apt install maven -y
