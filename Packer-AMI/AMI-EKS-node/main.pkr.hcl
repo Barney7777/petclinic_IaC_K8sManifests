@@ -9,12 +9,12 @@ packer {
 }
 
 # which ami to use as the based and where to save it
-source "amazon-ebs" "jenkins_slave_node_ami" {
+source "amazon-ebs" "eks_worker_node_ami" {
   region             = "ap-southeast-2"
   instance_type      = "t2.micro"
-  ami_name           = "jenkins-slave-node-ami-${formatdate("YYYY-MM-DD-hh-mm", timestamp())}"
-  source_ami         = "ami-03f0544597f43a91d"
-  ssh_username       = "ubuntu"
+  ami_name           = "eks-worker-node-ami-${formatdate("YYYY-MM-DD-hh-mm", timestamp())}"
+  source_ami         = "ami-0e98b1c81b916e2fa"
+  ssh_username       = "ec2-user"
   security_group_ids = ["sg-07e577f4b14868291"]
   # ami_users = ["AWS_Account_ID"]
   ami_regions = ["ap-southeast-2"]
@@ -22,9 +22,9 @@ source "amazon-ebs" "jenkins_slave_node_ami" {
 
 # build process
 build {
-  name = "jenkins_slave_node_ami"
+  name = "eks_node_ami"
   sources = [
-    "source.amazon-ebs.jenkins_slave_node_ami"
+    "source.amazon-ebs.eks_worker_node_ami"
   ]
 
   provisioner "file" {
