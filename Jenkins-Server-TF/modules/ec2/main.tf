@@ -2,9 +2,9 @@ resource "aws_instance" "ec2" {
   ami                    = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.key_name
-  subnet_id              = aws_subnet.public_subnet_az1.id
-  vpc_security_group_ids = [aws_security_group.jenkins_security_group.id]
-  iam_instance_profile   = aws_iam_instance_profile.ec2_instance_profile.name
+  subnet_id              = var.public_subnet_az1_id
+  vpc_security_group_ids = var.jenkins_security_group_id
+  iam_instance_profile   = var.iam_instance_profile
   root_block_device {
     volume_size = 50
   }

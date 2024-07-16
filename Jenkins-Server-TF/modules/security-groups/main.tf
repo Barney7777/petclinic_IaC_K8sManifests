@@ -2,7 +2,7 @@
 resource "aws_security_group" "jenkins_security_group" {
   name        = "${var.project_name}-${var.environment}-jenkins-sg"
   description = "Security Group For Jenkins Server"
-  vpc_id      = aws_vpc.vpc.id
+  vpc_id      = var.vpc_id
 
   ingress {
     description = "ssh access"
@@ -29,7 +29,7 @@ resource "aws_security_group" "jenkins_security_group" {
   }
 
   ingress {
-    description = "http access"
+    description = "jenkins access"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
