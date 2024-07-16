@@ -28,7 +28,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./Jenkins-Server
+        working-directory: ./Jenkins-Server-TF
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
