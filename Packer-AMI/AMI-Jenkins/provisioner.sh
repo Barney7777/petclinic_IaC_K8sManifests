@@ -33,3 +33,6 @@ sudo apt-get update
 sudo apt-get install docker.io -y
 sudo usermod -aG docker ubuntu
 newgrp docker
+
+# install mvn
+sudo apt install maven -y
