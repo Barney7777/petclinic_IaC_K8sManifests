@@ -1,12 +1,21 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        PACKER_FILE = "jenkins_slave_ami.pkr.hcl"
+        PACKER_FILE = "main.pkr.hcl"
+    }
+
+    parameters {
+        choice(name: 'SUB_FOLDER', choices: ['AMI-Jenkins', 'AMI-EKS-node', 'AMI-EC2'], description: 'Select the sub-folder where packer file is')
     }
 
     stages {
+
+        stage('clean Workspace'){
+            steps{
+                cleanWs()
+            }
+        }
+
         stage ('Checkout code') {
             steps {
                 git branch: 'main', url: 'https://github.com/Barney7777/petclinic_IaC_K8sManifests.git'
@@ -15,7 +24,7 @@ pipeline {
 
         stage ('packer init') {
             steps {
-                dir("Packer-AMI/AMI-Jenkins-slave-node") {
+                dir("Packer-AMI/${params.SUB_FOLDER}") {
                     script {
                         echo "Initializing Packer"
                         sh "packer init $PACKER_FILE"
@@ -26,7 +35,7 @@ pipeline {
 
         stage ('packer fmt') {
             steps {
-                dir("Packer-AMI/AMI-Jenkins-slave-node") {
+                dir("Packer-AMI/${params.SUB_FOLDER}") {
                     script {
                         echo "formatting Packer"
                         sh "packer fmt $PACKER_FILE"
@@ -37,7 +46,7 @@ pipeline {
 
         stage ('packer validate') {
             steps {
-                dir("Packer-AMI/AMI-Jenkins-slave-node") {
+                dir("Packer-AMI/${params.SUB_FOLDER}") {
                     script {
                         echo "validating Packer"
                         sh "packer validate $PACKER_FILE"
@@ -48,7 +57,7 @@ pipeline {
 
         stage ('packer build ami') {
             steps {
-                dir("Packer-AMI/AMI-Jenkins-slave-node") {
+                dir("Packer-AMI/${params.SUB_FOLDER}") {
                     script {
                         echo "Building Packer"
                         sh "packer build $PACKER_FILE"
