@@ -6,7 +6,7 @@ locals {
 
 # Create vpc
 module "vpc" {
-  source                 = "./modules/vpc"
+  source                 = "../modules/vpc"
   project_name           = local.project_name
   environment            = local.environment
   region                 = var.region
@@ -16,7 +16,7 @@ module "vpc" {
 
 # Create security-groups
 module "security_group" {
-  source       = "./modules/security-groups"
+  source       = "../modules/security-groups"
   project_name = local.project_name
   environment  = local.environment
   vpc_id       = module.vpc.vpc_id
@@ -25,14 +25,14 @@ module "security_group" {
 
 # Create ec2 iam
 module "iam" {
-  source       = "./modules/iam"
+  source       = "../modules/iam"
   project_name = local.project_name
   environment  = local.environment
 }
 
 # Create jenkins server
 module "ec2" {
-  source                    = "./modules/ec2"
+  source                    = "../modules/ec2"
   ami_id                    = var.ami_id
   instance_type             = var.instance_type
   key_name                  = var.key_name
